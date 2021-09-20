@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
-// require('dotenv').config();
-// const dotenv = require('dotenv')
-// const port=process.env.PORT || 5000;
+require('dotenv').config();
+const dotenv = require('dotenv')
+const port=process.env.PORT || 5000;
 const cors =require("cors");
 const bodyParser=require("body-parser");
 const MongoClient = require('mongodb').MongoClient;
@@ -92,6 +92,6 @@ app.get('/getPump/:id',(req,res)=>{
  
 app.get('/', (req, res)=> {
   res.send('hello')
-}).listen(5000,()=>{
+}).listen(port,()=>{
     console.log(`the server is running`)
 })
