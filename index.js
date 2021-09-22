@@ -23,10 +23,10 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
   const collection = client.db("smart-fluidtech").collection("stock-list");
   const categoyCollection = client.db("smart-fluidtech").collection("pump-category");
+  const deliveryCollection = client.db("smart-fluidtech").collection("delivery-collection");
 
 // data send from react form
-  app.post
-  ('/addProduct',(req,res)=>{
+  app.post('/addProduct',(req,res)=>{
     console.log(req.body)
     const items=req.body.data
     categoyCollection.insertOne(items,(err,docs)=>{
@@ -37,9 +37,30 @@ client.connect(err => {
 
   })
   // ----------
+// delivery product send from delivery submit component
+  app.post('/addDeliveryProduct',(req,res)=>{
+    console.log(req.body)
+    const items=req.body.data
+    deliveryCollection.insertOne(items,(err,docs)=>{
+      if (err) {
+        console.log(err)
+      }else{console.log('inserted')}
+    })
+
+  })
+  // ----------
   // data send to fronend
   app.get('/loadAllData',(req,res)=>{
     collection.find({}).toArray((err,result)=>{
+      if (err) {
+        console.log(err)
+      }else{res.send(result)}
+    })
+  })
+  // ---------
+  // all delivery items send to fronend
+  app.get('/allDeliveryList',(req,res)=>{
+    deliveryCollection.find({}).toArray((err,result)=>{
       if (err) {
         console.log(err)
       }else{res.send(result)}
@@ -95,6 +116,17 @@ app.get('/loadPump/:id',(req,res)=>{
   const item=req.params.id
   console.log(item)
   categoyCollection.find({model:item}).toArray((err,result)=>{
+    if (err) {
+      console.log(err)
+    }else{res.send(result)}
+  })
+})
+// .....
+// get some pump by model-cc30806 2
+app.get('/takePump/:id',(req,res)=>{
+  const item=req.params.id
+  console.log(item)
+  categoyCollection.find({serial:item}).toArray((err,result)=>{
     if (err) {
       console.log(err)
     }else{res.send(result)}
