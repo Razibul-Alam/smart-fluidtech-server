@@ -19,9 +19,11 @@ const uri = "mongodb+srv://smartFluidTech:smartfluidtech2021@cluster0.aicgl.mong
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+// database connection
 client.connect(err => {
   const collection = client.db("smart-fluidtech").collection("stock-list");
   const categoyCollection = client.db("smart-fluidtech").collection("pump-category");
+
 // data send from react form
   app.post
   ('/addProduct',(req,res)=>{
@@ -57,11 +59,12 @@ client.connect(err => {
   // delete single data
   app.delete('/delete/:id',(req,res)=>{
     const id=req.params.id
-    collection.deleteOne({ 
-      id:id
+    console.log(id)
+    categoyCollection.deleteOne({ 
+      serial:`${id}`
     })
     .then(function(result) {
-      // process result
+      res.send(result.deletedCount())
     })
     // ......
 
@@ -86,10 +89,23 @@ app.get('/getPump/:id',(req,res)=>{
     }else{res.send(result)}
   })
 })
+// .....
+// get some pump by model-cc30806
+app.get('/loadPump/:id',(req,res)=>{
+  const item=req.params.id
+  console.log(item)
+  categoyCollection.find({model:item}).toArray((err,result)=>{
+    if (err) {
+      console.log(err)
+    }else{res.send(result)}
+  })
+})
+// .....
 
   });
+  // database connection end
 
- 
+//  root api
 app.get('/', (req, res)=> {
   res.send('hello')
 }).listen(port,()=>{
