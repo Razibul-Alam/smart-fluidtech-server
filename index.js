@@ -6,6 +6,7 @@ const port=process.env.PORT || 5000;
 const cors =require("cors");
 const bodyParser=require("body-parser");
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId=require('mongodb').ObjectId
 
 
 app.use(cors());
@@ -82,7 +83,7 @@ client.connect(err => {
     const id=req.params.id
     console.log(id)
     categoyCollection.deleteOne({ 
-      serial:`${id}`
+      _id:ObjectId(`${id}`)
     })
     .then(function(result) {
       res.send(result.deletedCount())
@@ -127,6 +128,19 @@ app.get('/takePump/:id',(req,res)=>{
   const item=req.params.id
   console.log(item)
   categoyCollection.find({serial:item}).toArray((err,result)=>{
+    if (err) {
+      console.log(err)
+    }else{res.send(result)}
+  })
+})
+// .....
+
+// delivery database dynamic api
+// get some pump by category
+app.get('/showPump/:id',(req,res)=>{
+  const item=req.params.id
+  console.log(item)
+  deliveryCollection.find({category:item}).toArray((err,result)=>{
     if (err) {
       console.log(err)
     }else{res.send(result)}
