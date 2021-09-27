@@ -33,7 +33,7 @@ client.connect(err => {
     categoyCollection.insertOne(items,(err,docs)=>{
       if (err) {
         console.log(err)
-      }else{console.log('inserted')}
+      }else{res.send(docs)}
     })
 
   })
@@ -46,7 +46,7 @@ client.connect(err => {
     collection.insertOne(items,(err,docs)=>{
       if (err) {
         console.log(err)
-      }else{console.log('inserted')}
+      }else{res.send(docs)}
     })
 
   })
@@ -54,11 +54,20 @@ client.connect(err => {
 // delivery product send from delivery submit component
   app.post('/addDeliveryProduct',(req,res)=>{
     console.log(req.body)
-    const items=req.body.data
+    const items=req.body
     deliveryCollection.insertOne(items,(err,docs)=>{
       if (err) {
         console.log(err)
-      }else{console.log('inserted')}
+      }else{res.send('hello')}
+    })
+
+  })
+  app.post('/addName',(req,res)=>{
+   const item={'Name':'raju'}
+    deliveryCollection.insertOne(item,(err,docs)=>{
+      if (err) {
+        console.log(err)
+      }else{res.send(docs)}
     })
 
   })
