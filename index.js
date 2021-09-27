@@ -38,6 +38,19 @@ client.connect(err => {
 
   })
   // ----------
+// data send from react form
+  app.post('/addBanner',(req,res)=>{
+    
+    const items=req.body
+    console.log(items)
+    collection.insertOne(items,(err,docs)=>{
+      if (err) {
+        console.log(err)
+      }else{console.log('inserted')}
+    })
+
+  })
+  // ----------
 // delivery product send from delivery submit component
   app.post('/addDeliveryProduct',(req,res)=>{
     console.log(req.body)
@@ -86,7 +99,7 @@ client.connect(err => {
       _id:ObjectId(`${id}`)
     })
     .then(function(result) {
-      res.send(result.deletedCount())
+      
     })
     // ......
 
