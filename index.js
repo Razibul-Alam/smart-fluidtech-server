@@ -108,7 +108,7 @@ client.connect(err => {
       _id:ObjectId(`${id}`)
     })
     .then(function(result) {
-      
+      console.log(result)
     })
     // ......
 
