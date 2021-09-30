@@ -156,6 +156,17 @@ app.get('/takePump/:id',(req,res)=>{
   })
 })
 // .....
+// get some pump by model-cc30806 2
+app.get('/getItems/:id',(req,res)=>{
+  const item=req.params.id
+  console.log(item)
+  categoyCollection.find({type:item}).toArray((err,result)=>{
+    if (err) {
+      console.log(err)
+    }else{res.send(result)}
+  })
+})
+// .....
 
 // delivery database dynamic api
 // get some pump by category
