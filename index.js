@@ -169,6 +169,7 @@ app.get('/getItems/:id',(req,res)=>{
 // .....
 
 // delivery database dynamic api
+
 // get some pump by category
 app.get('/showPump/:id',(req,res)=>{
   const item=req.params.id
@@ -179,6 +180,17 @@ app.get('/showPump/:id',(req,res)=>{
     }else{res.send(result)}
   })
 })
+// .....
+// get some pump by challan
+// app.get('/deliveryItem/:id',(req,res)=>{
+//   const item=req.params.id
+//   console.log(item)
+//   deliveryCollection.find({challan:item}).toArray((err,result)=>{
+//     if (err) {
+//       console.log(err)
+//     }else{res.send(result)}
+//   })
+// })
 // .....
 
   });
