@@ -23,14 +23,14 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 // database connection
 client.connect(err => {
   const collection = client.db("smart-fluidtech").collection("stock-list");
-  const categoyCollection = client.db("smart-fluidtech").collection("pump-category");
+  const categoryCollection = client.db("smart-fluidtech").collection("pump-category");
   const deliveryCollection = client.db("smart-fluidtech").collection("delivery-collection");
 
 // data send from react form
   app.post('/addProduct',(req,res)=>{
     console.log(req.body)
     const items=req.body.data
-    categoyCollection.insertOne(items,(err,docs)=>{
+    categoryCollection.insertOne(items,(err,docs)=>{
       if (err) {
         console.log(err)
       }else{res.send(docs)}
@@ -104,7 +104,7 @@ client.connect(err => {
   app.delete('/delete/:id',(req,res)=>{
     const id=req.params.id
     console.log(id)
-    categoyCollection.deleteOne({ 
+    categoryCollection.deleteOne({ 
       _id:ObjectId(`${id}`)
     })
     .then(function(result) {
@@ -116,7 +116,7 @@ client.connect(err => {
    // get all pumps from pump category
      // data send to fronend
      app.get('/getPumps',(req,res)=>{
-      categoyCollection.find({}).toArray((err,result)=>{
+      categoryCollection.find({}).toArray((err,result)=>{
         if (err) {
           console.log(err)
         }else{res.send(result)}
@@ -127,7 +127,7 @@ client.connect(err => {
 app.get('/getPump/:id',(req,res)=>{
   const item=req.params.id
   console.log(item)
-  categoyCollection.find({category:item}).toArray((err,result)=>{
+  categoryCollection.find({category:item}).toArray((err,result)=>{
     if (err) {
       console.log(err)
     }else{res.send(result)}
@@ -138,7 +138,7 @@ app.get('/getPump/:id',(req,res)=>{
 app.get('/loadPump/:id',(req,res)=>{
   const item=req.params.id
   console.log(item)
-  categoyCollection.find({model:item}).toArray((err,result)=>{
+  categoryCollection.find({model:item}).toArray((err,result)=>{
     if (err) {
       console.log(err)
     }else{res.send(result)}
@@ -149,7 +149,7 @@ app.get('/loadPump/:id',(req,res)=>{
 app.get('/takePump/:id',(req,res)=>{
   const item=req.params.id
   console.log(item)
-  categoyCollection.find({serial:item}).toArray((err,result)=>{
+  categoryCollection.find({serial:item}).toArray((err,result)=>{
     if (err) {
       console.log(err)
     }else{res.send(result)}
@@ -160,7 +160,7 @@ app.get('/takePump/:id',(req,res)=>{
 app.get('/getItems/:id',(req,res)=>{
   const item=req.params.id
   console.log(item)
-  categoyCollection.find({type:item}).toArray((err,result)=>{
+  categoryCollection.find({type:item}).toArray((err,result)=>{
     if (err) {
       console.log(err)
     }else{res.send(result)}
