@@ -25,6 +25,7 @@ client.connect(err => {
   const collection = client.db("smart-fluidtech").collection("stock-list");
   const categoryCollection = client.db("smart-fluidtech").collection("pump-category");
   const deliveryCollection = client.db("smart-fluidtech").collection("delivery-collection");
+  const documentsCollection = client.db("smart-fluidtech").collection("documents-collection");
 
 // data send from react form
   app.post('/addProduct',(req,res)=>{
@@ -44,6 +45,19 @@ client.connect(err => {
     const items=req.body
     console.log(items)
     collection.insertOne(items,(err,docs)=>{
+      if (err) {
+        console.log(err)
+      }else{res.send(docs)}
+    })
+
+  })
+  // ----------
+// data send from react form
+  app.post('/addDocument',(req,res)=>{
+    
+    const items=req.body
+    console.log(items)
+    documentsCollection.insertOne(items,(err,docs)=>{
       if (err) {
         console.log(err)
       }else{res.send(docs)}
