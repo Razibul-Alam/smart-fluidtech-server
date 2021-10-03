@@ -174,7 +174,7 @@ app.get('/getItems/:id',(req,res)=>{
 app.get('/showPump/:id',(req,res)=>{
   const item=req.params.id
   console.log(item)
-  deliveryCollection.find({category:item}).toArray((err,result)=>{
+  deliveryCollection.find({challan:item}).toArray((err,result)=>{
     if (err) {
       console.log(err)
     }else{res.send(result)}
