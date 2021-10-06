@@ -16,7 +16,7 @@ app.use(bodyParser.json())
 
 
 // connect node with mongodb
-const uri = "mongodb+srv://smartFluidTech:smartfluidtech2021@cluster0.aicgl.mongodb.net/smart-fluidtech?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.aicgl.mongodb.net/smart-fluidtech?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
