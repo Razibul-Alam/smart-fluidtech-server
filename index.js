@@ -124,8 +124,19 @@ client.connect(err => {
     .then(function(result) {
       console.log(result)
     })
-    // ......
-
+  
+  })
+  // delete single data from delivery
+  app.delete('/remove/:id',(req,res)=>{
+    const id=req.params.id
+    console.log(id)
+    categoryCollection.deleteOne({ 
+      _id:ObjectId(`${id}`)
+    })
+    .then(function(result) {
+      console.log(result)
+    })
+  
   })
    // get all pumps from pump category
      // data send to fronend
