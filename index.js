@@ -130,7 +130,7 @@ client.connect(err => {
   app.delete('/remove/:id',(req,res)=>{
     const id=req.params.id
     console.log(id)
-    categoryCollection.deleteOne({ 
+    deliveryCollection.deleteOne({ 
       _id:ObjectId(`${id}`)
     })
     .then(function(result) {
